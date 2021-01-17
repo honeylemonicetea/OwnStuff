@@ -13,6 +13,7 @@ import time
 from bs4 import BeautifulSoup
 import requests as req
 import random
+import string
 
 # CHAT BOT CREATION
 chat_bot = ConsoleChatBot()
@@ -41,11 +42,14 @@ def change_name():
 
 
 def life_chat():
+    punct = string.punctuation
     # use NLP to assess the statement sentiment and choose a response
     while True:
         topic = random.choice(topic_list)
         print(f"{chat_bot.name}: So tell me about {topic}, type \"no\" to exit")
-        user_entry = input(f"{chat_bot.name}: Write it here...")
+        user_entry = input(f"{chat_bot.name}: Write it here...").lower()
+        clean_entry= user_entry.translate(str.maketrans("","",punct))
+        print(f"{user_name}: {clean_entry}")
         if user_entry.lower() == "no":
             break
 
