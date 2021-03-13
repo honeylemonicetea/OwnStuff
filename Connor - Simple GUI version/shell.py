@@ -129,6 +129,7 @@ root.bind('5', mad_libs)
 
 
 
+
 #FIELDS
 
 output_field = tk.Text(root, width=40, heigh=4, font=('Century Gothic', 10, 'normal'), state=tk.DISABLED, bg = 'lavender')

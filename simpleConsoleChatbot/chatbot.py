@@ -5,6 +5,8 @@ CHECKLIST
 3. Joking - DONE
 4. TODO: Chatting - Sentiment analysis
 5. TODO: MULTI LANGUAGE SUPPORT
+6. TODO: Clear user data
+
 """
 
 # ALL THE IMPORTS HERE
@@ -16,6 +18,7 @@ import requests as req
 import random
 import colorama
 import json
+#more reqs - lxml
 
 # CHAT BOT CREATION
 chat_bot = ConsoleChatBot()
@@ -86,7 +89,7 @@ def change_name():
     write_data(bot_name=new_name)
     print(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: Now my name is {chat_bot.name}")
 def life_chat():
-    # use NLP to assess the statement sentiment and choose a response
+    # TODO use NLP to assess the statement sentiment and choose a response
     while True:
         topic = random.choice(topic_list)
         print(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: So tell me about {topic}, type \"no\" to exit")

@@ -1,5 +1,5 @@
 class ConsoleChatBot:
-    def __init__(self, name="ChatBot"):
+    def __init__(self, name="Connor"):
         self.name = name
 
     def greeting(self):
