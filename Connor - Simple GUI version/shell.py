@@ -1,10 +1,23 @@
 """
-1. TODO create a simple shell UI
-2. TODO dark mode
+1. Create a simple shell UI DONE
+2.  dark mode DONE
 3. Make it work
 """
 
 import tkinter as tk
+from resources.chat_bot_class import ConsoleChatBot, User
+import time
+from bs4 import BeautifulSoup
+import requests as req
+import random
+import colorama
+import json
+#more reqs - lxml
+
+
+
+
+
 
 root = tk.Tk()
 root.title('ChatBot')

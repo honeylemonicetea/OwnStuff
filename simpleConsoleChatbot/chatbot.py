@@ -3,9 +3,9 @@ CHECKLIST
 1. Time and weekday - DONE
 2. Weather status - DONE
 3. Joking - DONE
-4. TODO: Chatting - Sentiment analysis
-5. TODO: MULTI LANGUAGE SUPPORT
-6. TODO: Clear user data
+4. Chatting - Sentiment analysis - not sophisticated yet but DONE
+5. TODO: GUI
+6. Clear user data DONE
 
 """
 
@@ -18,6 +18,9 @@ import requests as req
 import random
 import colorama
 import json
+from resources.connor_SentAn import Sentiment
+from resources.sentence_resources import happy_responses, supportive_responses
+
 #more reqs - lxml
 
 # CHAT BOT CREATION
@@ -48,6 +51,22 @@ def get_name_data():
     user_name = h.get("userName")
     bot_name = h.get("botName")
     return user_name, bot_name
+
+def reset_names():
+    global  user
+    confirm = input(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}:are you sure you want to erase all name data? Type YES to confirm")
+    if confirm.lower() == 'yes':
+        with open('data.json') as data:
+            h = json.load(data)
+        with open('data.json', 'w') as file:
+            h['userName'] = ''
+            h['botName'] = ''
+            json.dump(h, file)
+            chat_bot.name = 'Connor'
+            user = ''
+
+
+
 def main_menu():
     print(colorama.Fore.LIGHTCYAN_EX+colorama.Style.BRIGHT+"(*/ω＼*)Main Menu╰(*°▽°*)╯"+colorama.Style.RESET_ALL)
     print(colorama.Fore.LIGHTMAGENTA_EX+colorama.Style.BRIGHT+"1. Change my name"+colorama.Style.RESET_ALL)
@@ -55,6 +74,7 @@ def main_menu():
     print(colorama.Fore.LIGHTGREEN_EX+colorama.Style.BRIGHT+"3. Tell about the weather."+colorama.Style.RESET_ALL)
     print(colorama.Fore.LIGHTRED_EX+colorama.Style.BRIGHT+"4. Tell a joke"+colorama.Style.RESET_ALL)
     print(colorama.Fore.WHITE+colorama.Style.BRIGHT+"5. Tell a story"+colorama.Style.RESET_ALL)
+    print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "6. Reset Name Data" + colorama.Style.RESET_ALL)
 def set_time_data():  # WORKS
     full_time = time.localtime()
     hour = full_time.tm_hour
@@ -89,11 +109,19 @@ def change_name():
     write_data(bot_name=new_name)
     print(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: Now my name is {chat_bot.name}")
 def life_chat():
-    # TODO use NLP to assess the statement sentiment and choose a response
+    #  uses NLP to assess the statement sentiment and choose a response
     while True:
         topic = random.choice(topic_list)
         print(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: So tell me about {topic}, type \"no\" to exit")
         user_entry = input(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: Write it here...")
+        processed_sentence = Sentiment(user_entry)
+        processed_sentence.sentiment_analysis()
+        score = processed_sentence.score
+        if score >= 0:
+            response = random.choice(happy_responses)
+        else:
+            response = random.choice(supportive_responses)
+        print(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: {response}")
         if user_entry.lower() == "no":
             break
 def weather():
@@ -184,6 +212,8 @@ while True:
         joke()
     elif option == "5":  # tell a story
         story_tell(current_user.user_name)
+    elif option == '6':
+        reset_names()
     ask = input(f"{colorama.Fore.CYAN+chat_bot.name+colorama.Style.RESET_ALL}: Wanna continue?(input no to exit)")
     if ask.lower() == "no":
         break
