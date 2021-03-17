@@ -6,10 +6,10 @@
   <li>Ask you about a random thing</li>
   <li>Tell a Joke</li>
   <li>Generate a simple Mad Libs story</li>
-  
+  <li>Sentiment Analysis</li>  
 </ul>
   
 <h2>What it can't do (yet?)</h2>
 <ul>
-  <li>Sentiment Analysis</li>  
+  <li>Everything not listed in <strong>What it can do</strong> </li>
 </ul>
