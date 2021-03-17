@@ -7,6 +7,7 @@
   <li>Tell a Joke</li>
   <li>Generate a simple Mad Libs story</li>
   <li>Sentiment Analysis</li>  
+  <li> Reset name data </li>
 </ul>
   
 <h2>What it can't do (yet?)</h2>
